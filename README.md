@@ -1,1 +1,1 @@
-# rock-paper-scissors
+Utilized my pre-existing knowledge of Javascript in order to implement a user interface for the game Rock-Paper-Scissors. Although, I've taken the creative liberty to make it Sword-Spear-Axe for fun. I used Javascript to manipulate the DOM in which I would be able to add user functionality to the website. A variety of the Javascript methods I used involved calculating the number of rounds, player score, computer score, and computing the victor for each round.

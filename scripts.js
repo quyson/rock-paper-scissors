@@ -36,11 +36,11 @@ function calculation(computerSelection, playerSelection,){
 function update(result, playerSelection){
     if(result === 'Win'){
         let result = document.querySelector('.playerScore');
-        let currentValue = result.textContent[14];
+        let currentValue = result.textContent.slice(14);
         result.textContent = "Player Score: " + (Number(currentValue) + 1);
     } else if(result === 'Lose'){
         let result = document.querySelector('.computerScore');
-        let currentValue = result.textContent[16];
+        let currentValue = result.textContent.slice(16)
         result.textContent = "Computer Score: " + (Number(currentValue) + 1);
     } else {
         let result = document.querySelector('.tie');
@@ -52,8 +52,26 @@ function update(result, playerSelection){
     choiceDisplay.textContent = "You Chose: " + playerSelection;
 
     let roundNumber = document.querySelector('.round');
-    let currentValueRound = roundNumber.textContent[7];
+    let currentValueRound = roundNumber.textContent.slice(7);
     roundNumber.textContent = "Round: " + (Number(currentValueRound) + 1);
+}
+
+function checkWin() {
+    let score = document.querySelector('.playerScore');
+    let compScore = document.querySelector('.computerScore');
+    if(score.textContent[14] == 5){
+        let endMessage = document.querySelector('.winner');
+        endMessage.textContent = "YOU WIN!";
+        endMessage.style.display = 'block';
+        let replayButton = document.querySelector('.replay');
+    replayButton.style.display = 'block';
+    } else if (compScore.textContent[16] == 5){
+        let endMessage = document.querySelector('.winner');
+        endMessage.textContent = "YOU LOSE!";
+        endMessage.style.display = 'block';
+        let replayButton = document.querySelector('.replay');
+        replayButton.style.display = 'block';
+    }
 }
 
 function round(elementClass){
@@ -61,4 +79,5 @@ function round(elementClass){
     let playerSelection = elementClass;
     let roundResult = calculation(computerSelection, playerSelection);
     update(roundResult, playerSelection);
+    checkWin();
 }
