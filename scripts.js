@@ -1,65 +1,64 @@
-function getComputerChoice() {
-    let computerChoices = ['scissors', 'rock', 'paper'];
-    let choice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-    return choice
+function computerChoice() {
+    let choices = ['spear', 'sword', 'axe'];
+    let choice = choices[Math.floor(Math.random() * choices.length)];
+    return choice;
 }
 
-function gameRound(computerSelection, playerSelection,playerScore,computerScore){
-    if(computerSelection === 'scissors' && playerSelection === 'paper'){
-        return "You Lose! Scissors beats paper";
-    } else if(computerSelection === 'rock' && playerSelection === 'scissors'){
-        return "You Lose! Rock beats scissors!";
-    } else if(computerSelection === 'paper' && playerSelection === 'rock'){
-        return "You Lose! Paper beats rock!";
-    }else if(computerSelection === 'scissors' && playerSelection === 'rock'){
-        return "You Win! Rock beats scissors!";
-    }else if(computerSelection === 'rock' && playerSelection === 'paper'){
-        return "You Win! Paper beats rock!";
-    }else if(computerSelection === 'paper' && playerSelection === 'scissors'){
-        return "You Win! Scissors beats rock!";
+const spearImage = document.querySelector('.spear');
+const swordImage = document.querySelector('.sword');
+const axeImage = document.querySelector('.axe');
+
+
+spearImage.addEventListener('click', () => round('spear'));
+swordImage.addEventListener('click', () => round('sword'));
+axeImage.addEventListener('click', () => round('axe'));
+
+
+
+function calculation(computerSelection, playerSelection,){
+    if(computerSelection === 'sword' && playerSelection === 'axe'){
+        return "Lose";
+    } else if(computerSelection === 'spear' && playerSelection === 'sword'){
+        return "Lose";
+    } else if(computerSelection === 'axe' && playerSelection === 'spear'){
+        return "Lose";
+    }else if(computerSelection === 'sword' && playerSelection === 'spear'){
+        return "Win";
+    }else if(computerSelection === 'axe' && playerSelection === 'sword'){
+        return "Win";
+    }else if(computerSelection === 'spear' && playerSelection === 'axe'){
+        return "Win";
     } else{
         return "Tie!";
     }
 }
 
-function player(){
-    let playerChoice = prompt("Please pick either: rock, paper, or scissors").toLowerCase();
-
-    while(playerChoice !== 'paper' && playerChoice !== 'scissors' && playerChoice !== 'rock'){
-        playerChoice = prompt("Please pick either: rock, paper, or scissors").toLowerCase();
-    }
-
-    return playerChoice
-}
-
-
-function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    let computerSelection;
-    let playerChoice;
-    let result;
-    for(let i = 0;i < 5; i++){
-        computerSelection = getComputerChoice();
-        playerChoice = player(); 
-        result = gameRound(computerSelection, playerChoice, playerScore, computerScore)
-        console.log(result)
-        if(result[4] === 'L'){
-            computerScore ++;
-        } else if(result[4 === 'W']){            
-            playerScore ++;
-        } 
-    }
-    if(playerScore > computerScore){
-        console.log(playerScore + " | " + computerScore)
-        console.log("You Win")
+function update(result, playerSelection){
+    if(result === 'Win'){
+        let result = document.querySelector('.playerScore');
+        let currentValue = result.textContent[14];
+        result.textContent = "Player Score: " + (Number(currentValue) + 1);
+    } else if(result === 'Lose'){
+        let result = document.querySelector('.computerScore');
+        let currentValue = result.textContent[16];
+        result.textContent = "Computer Score: " + (Number(currentValue) + 1);
     } else {
-        console.log(playerScore + " | " + computerScore)
-        console.log("You Lose!")
+        let result = document.querySelector('.tie');
+        let currentValue = result.textContent[6];
+        result.textContent = "Ties: " + (Number(currentValue) + 1);
     }
+
+    let choiceDisplay = document.querySelector('.choice');
+    choiceDisplay.textContent = "You Chose: " + playerSelection;
+
+    let roundNumber = document.querySelector('.round');
+    let currentValueRound = roundNumber.textContent[7];
+    roundNumber.textContent = "Round: " + (Number(currentValueRound) + 1);
 }
 
-game();
-
-
-
+function round(elementClass){
+    let computerSelection = computerChoice();
+    let playerSelection = elementClass;
+    let roundResult = calculation(computerSelection, playerSelection);
+    update(roundResult, playerSelection);
+}
